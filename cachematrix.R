@@ -15,11 +15,16 @@ makeCacheMatrix <- function(m = matrix()) {
   m_matrix  <- m
   m_inverse <- NULL
   
-  setMatrix <- function(m)   { m_matrix <<- m; m_inverse <<- NULL}
-  getMatrix <- function()    { return(m_matrix)                  } 
-  setInverse<- function(inv) { m_inverse <<- inv                 }
-  getInverse<- function()    { return(m_inverse)                 }
-  
+  setMatrix  <- function(m)   { m_matrix <<- m; m_inverse <<- NULL}
+  getMatrix  <- function()    { return(m_matrix)                  } 
+  setInverse <- function(inv) { m_inverse <<- inv                 }
+  getInverse <- function(){
+    if (is.null(m_inverse)){
+      return(m_inverse <<- solve(m_matrix))
+    }
+    return(m_inverse)
+  }
+
   return(list(setMatrix  = setMatrix, 
               getMatrix  = getMatrix,
               setInverse = setInverse,
